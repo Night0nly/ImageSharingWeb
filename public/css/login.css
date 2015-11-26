@@ -1,0 +1,29 @@
+@CHARSET "ISO-8859-1";
+body {
+	background-image:
+		url("../images/login-bg.jpg");
+	background-color: gray;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.box {
+	margin-top: 10%;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: middle;
+	background: rgba(0, 0, 0, 0.75);
+	padding: 65px;
+	position: relative;
+	width: 400;
+	text-align: center;
+}
+.remoteLine p{
+	margin :auto;
+}
+a {
+	color: #4F5254;
+	font-size: 15px;
+}

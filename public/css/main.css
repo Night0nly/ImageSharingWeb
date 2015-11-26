@@ -1,0 +1,94 @@
+.topstrip {
+	width:100%;
+	height:750px;
+	background:url("../images/BearPhotogs_EN-US9951157720_1920x1200.jpg") white top center no-repeat;
+	position:fixed;
+	top:0;
+	-moz-font-smoothing:antialiased;
+	-webkit-font-smoothing:antialiased;
+	background-size: 100% 100%;
+}
+.navbar-inverse{
+	top:0px;
+}
+
+.topstrip .mainheader {
+	width:1000px;
+	margin:0 auto;
+	color:#fff;
+}
+.topstrip .mainheader .logo {
+	margin-top:90px;
+	float:left;
+	height: 65px;
+}
+.topstrip nav {
+	float:right;
+	width:450px;
+	margin-top:80px;
+	font-family:'Open Sans', sans-serif;
+}
+nav li {
+	list-style: none;
+	float:left;
+	margin:0 0 0 50px;
+}
+
+nav li:first-child {
+	margin:0;
+}
+nav a {
+	padding:5px;
+	color:black;
+	display:block;
+	-moz-transition:all 0.3s ease-in-out; 
+	-webkit-transition:all 0.3s ease-in-out;
+	text-decoration:none; 
+}
+nav a p { 
+
+	color:rgba(204, 204, 204, 0.7); 
+	font-size:0.8em;
+	margin-top:0px;
+	font-weight:300;
+	text-decoration: none;
+
+}
+nav a p:first-child { 
+	font-family:'Open Sans Regular', sans-serif;
+	color:#fff; 
+	font-size:1.65em;
+	margin-bottom:0px;
+	font-weight:600;
+	text-decoration: none;
+}
+nav a:hover p { 
+	color:#e2812b; 
+	text-decoration: none;
+	-moz-transition:all 0.3s ease-in-out; 
+	-webkit-transition:all 0.3s ease-in-out; 
+}
+.topstrip .mainheader h1 {
+	display:block;
+	font-family:'arvo', serif;
+	float:left;
+	font-weight:normal;
+	width:1000px;
+	text-align:center;
+	margin-top:135px;
+	margin-bottom:10px;
+	font-size:4.5em;
+	text-shadow:#000 1px 1px;
+}
+.topstrip .mainheader h2 {
+	display:block;
+	font-family:'Open Sans', sans-serif;
+	font-weight:300;
+	font-size:1.5em;
+	width:800px;
+	text-align:center;
+	float:left;
+	line-height:1.9em;
+	margin-left:90px;
+}
+
