@@ -4,10 +4,12 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="./css/flat-ui.css">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/main.css">
-
+	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/flat-ui.css">
+	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/main.css">
+	<script src="{{ url() }}/js/jquery.js"></script>
+	<script src="{{ url() }}/js/jquery.jscroll.js"></script>
+	@yield('head')
 	<title>@yield('title')</title>
 
 </head>
@@ -19,10 +21,9 @@
 	</div>
 	<div class="navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="">Home</a></li>
 			<li><a href="">Gallery</a></li>
 			<li><a href="">Favorite</a></li>
-			<li><a href="">Feed</a></li>
+			<li><a href="http://localhost:8000/feed">Feed</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="">Sign in</a></li>

@@ -1,5 +1,10 @@
 <?php
-class Photo extends Eloquent {
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Photo extends Model {
 
     //the variable that sets the table name
     protected $table = 'photos';

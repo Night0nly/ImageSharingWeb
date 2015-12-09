@@ -92,3 +92,39 @@ nav a:hover p {
 	margin-left:90px;
 }
 
+.aboutUs{
+	position: relative;
+	top: 760px;
+	background: white;
+}
+.allAbout{
+	width:1000px;
+	margin:0 auto 200px;
+	padding-top:135px;
+	overflow:auto;
+	margin-bottom:190px;
+}
+.textcontent {
+	float:left;
+	width:500px;
+}
+.textcontent h1 {
+	display:block;
+	font-family:'arvo', serif;
+	font-weight:normal;
+	color:#d68d4c;
+	font-size:2.25em;
+}
+.textcontent p {
+	font-size:1.5em;
+	color:#8c8c8c;
+	line-height:1.8em;
+}
+#marker-end {
+	height: 32px;
+	background: url("../images/loading.gif") no-repeat 50% 50%;
+}
+.showimages{
+	text-align: center;
+	margin-top: 100px;
+}

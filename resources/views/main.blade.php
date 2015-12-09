@@ -8,7 +8,7 @@
                 	<ul>
                     	<li><a href=""><p>Gallery</p><p>the beautiful world</p></a></li>
                         <li><a href=""><p>Favorite</p><p>the best moment of</p></a></li>
-                        <li><a href=""><p>Feed</p><p>your life .</p></a></li>
+                        <li><a href="http://localhost:8000/feed"><p>Feed</p><p>your life .</p></a></li>
                     </ul>
                 </nav>
                 <h1>Sharing photos and life style.</h1>
@@ -16,21 +16,34 @@
             </header>
 
 	</div>
-	<div style="position: relative; top: 750px;">
-	 <img src="./images/test.jpg" alt="HTML5 Icon">
+	<div class="aboutUs">
+		<div class="allAbout">
+			<section class="textcontent">
+			<h1>About Us</h1>
+			<p>Bach Khoa University Of Science And Technology<br>
+			Nguyen Ngoc Hung - 20121867<br>
+				Vu Dang Khoi - 20121930<br>
+				Tran Danh Ha - 2012****<br>
+				Tran Cong Khanh - 20121902
+			</p>
+			</section>
+		</div>
+		<div><p>sdasdsadasd</p></div>
+
 	</div>
 	<script src="./js/jquery.js"></script>
+
 	<script type="text/javascript">
 
 	$(window).scroll(function(){
-	  if($(window).scrollTop() > 750){
+	  if($(window).scrollTop() > 740){
 	      $("#navbar-inverse").slideDown("fast");
 	      document.getElementById('navbar-display').style.display = 'block';
 
 	  }
 	});
 	$(window).scroll(function(){
-	  if($(window).scrollTop() < 750){
+	  if($(window).scrollTop() < 740){
 	      $("#navbar-inverse").slideUp("fast");
 	      document.getElementById('navbar-display').style.display = 'none';
 	  }
