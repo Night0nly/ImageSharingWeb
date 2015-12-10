@@ -25,8 +25,7 @@ class ImageController extends Controller
         return view('test2');
     }
     public function feed(){
-        $photos = Photo::orderBy('created_at','desc')->get();
-        return view('feed')->with(['photos'=>$photos]);
+        return view('feed');
     }
     public  function image(){
         return view('test');

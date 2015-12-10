@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumsTable extends Migration
+class CreatePhototagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateAlbumsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('albums',function(Blueprint $table){
-            $table->increments('id');
-            $table->string('title');
-            $table->string('caption');
+        Schema::create('phototags',function(Blueprint $table){
+            $table->string('photo_id');
+            $table->string('album_id');
             $table->timestamps();
         });
     }

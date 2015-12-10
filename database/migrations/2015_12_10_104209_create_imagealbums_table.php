@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-class CreateUserAlbumsTable extends Migration
+class CreateImageAlbumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +11,12 @@ class CreateUserAlbumsTable extends Migration
     public function up()
     {
         //
-        Schema::create('useralbums',function(Blueprint $table){
-            $table->string('user_id');
+        Schema::create('imagealbums',function(Blueprint $table){
+            $table->string('image_id');
             $table->string('album_id');
-            $table->timestemps();
-        })
+            $table->timestamps();
+        });
     }
-
     /**
      * Reverse the migrations.
      *
