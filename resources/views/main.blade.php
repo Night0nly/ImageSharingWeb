@@ -3,7 +3,7 @@
 @section('content')
 	<div class="topstrip">
 	<header class="mainheader">
-		      	<a href="#"><img src="./images/cwl2.png" class="logo"></a>
+		      	<a href="http://localhost:8000"><img src="./images/cwl2.png" class="logo"></a>
                 <nav>
                 	<ul>
                     	<li><a href=""><p>Gallery</p><p>the beautiful world</p></a></li>
@@ -12,8 +12,14 @@
                     </ul>
                 </nav>
                 <h1>Sharing photos and life style.</h1>
-                <h2>Save your best moments of your life as often as you can,one day its gonna be your most precious things. <a href="">Log in</a> or <a href="">Join us now</a> to start sharing</h2>
-            </header>
+                <h2>Save your best moments of your life as often as you can,one day its gonna be your most precious things.
+					@if(Auth::check())
+						Let's do it Now.
+					@else
+						<a href="http://localhost:8000/auth/login">Log in</a> or <a href="http://localhost:8000/auth/register">Join us now</a> to start sharing
+					@endif
+				</h2>
+	</header>
 
 	</div>
 	<div class="aboutUs">
@@ -28,7 +34,7 @@
 			</p>
 			</section>
 		</div>
-		<div><p>sdasdsadasd</p></div>
+		<div><p>.</p></div>
 
 	</div>
 	<script src="./js/jquery.js"></script>

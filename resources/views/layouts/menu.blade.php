@@ -17,7 +17,7 @@
 
 <div class="navbar-inverse" id="navbar-display" style="display:none">
 	<div class="navbar-header">
-		<a href="" class="navbar-brand">ColorWorld</a>
+		<a href="http://localhost:8000/" class="navbar-brand">ColorWorld</a>
 	</div>
 	<div class="navbar-collapse">
 		<ul class="nav navbar-nav">
@@ -26,8 +26,13 @@
 			<li><a href="http://localhost:8000/feed">Feed</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="">Sign in</a></li>
-			<li><a href="">Register</a></li>
+			@if(Auth::check())
+				<li><a href="#">{{Auth::User()->name}}</a> </li>
+				<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
+			@else
+				<li><a href="http://localhost:8000/auth/login">Sign in</a></li>
+				<li><a href="http://localhost:8000/auth/register">Register</a></li>
+			@endif
 		</ul>
 		<form role="search" class="navbar-form navbar-right">
 			<div class="form-group">
