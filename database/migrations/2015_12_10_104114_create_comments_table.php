@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagsTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,9 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('tags',function(Blueprint $table){
-            $table->increment('id');
-            $table->string('tag_name');
-            $table->timestemps();
-        });
+//        Schema::create('comments',function(Blueprint $table){
+//
+//        });
     }
 
     /**

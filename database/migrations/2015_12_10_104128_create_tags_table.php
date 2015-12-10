@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImageTagsTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateImageTagsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('imagetags',function(Blueprint $table){
-            $table->string('image_id');
-            $table->string('album_id');
-            $table->timestemps();            
+        Schema::create('tags',function(Blueprint $table){
+            $table->increments('id');
+            $table->string('tag_name');
+            $table->timestamps();
         });
     }
 
