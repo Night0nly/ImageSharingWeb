@@ -18,7 +18,7 @@ body {
 	padding: 65px;
 	padding-top: 35px;
 	position: relative;
-	width: 400;
+	width: 400px;
 	text-align: center;
 }
 .remoteLine p{
@@ -27,4 +27,13 @@ body {
 a {
 	color: #4F5254;
 	font-size: 15px;
+}
+.errMes{
+	background-color: #CA3737;
+	font-family: 'Open Sans Regular', sans-serif;
+	color: #fafaff;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding-bottom: 0px;
 }

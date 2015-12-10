@@ -1,5 +1,3 @@
-@include('shared.errors_message')
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,16 +6,24 @@
     <link rel="stylesheet" type="text/css" href="{{url()}}/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{url()}}/css/flat-ui.css">
     <link rel="stylesheet" type="text/css" href="{{url()}}/css/login.css">
-
-
     <style>
 
     </style>
 
 </head>
 <body>
-<div class = "box" style="margin-top: 3%">
-    <a href="http://localhost:8000/test" ><img src="{{ url() }}/images/cwl2.png" height="65px" style="margin-bottom: 25px"></a>
+@if(count($errors)>0)
+    <div class="errMes">
+        <p>{{count($errors)}} Error:
+        @foreach($errors->all() as $error)
+            {{$error}}.
+        @endforeach
+        </p>
+    </div>
+@endif
+<div class = "box" style="margin-top: 3.5%">
+
+    <a href="http://localhost:8000/" ><img src="{{ url() }}/images/cwl2.png" height="65px" style="margin-bottom: 25px"></a>
     <form method="POST" action="{{ url() }}/auth/register">
         {!!csrf_field()!!}
         <div class="form-group">

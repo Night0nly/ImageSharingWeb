@@ -15,6 +15,15 @@
 	
 </head>
 <body>
+@if(count($errors)>0)
+	<div class="errMes">
+		<p>{{count($errors)}} Error:
+			@foreach($errors->all() as $error)
+				{{$error}}.
+			@endforeach
+		</p>
+	</div>
+@endif
 	<div class = "box">
 		<a href="http://localhost:8000/test" ><img src="{{ url() }}/images/cwl2.png" height="65px" style="margin-bottom: 25px"></a>
 		<form action="{{url()}}/auth/login" method="POST">
