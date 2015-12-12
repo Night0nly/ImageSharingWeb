@@ -31,7 +31,7 @@
         </div>
         <input style="margin-bottom: 20px;" type="password" placeholder="Password" name="password" class="form-control input-lg" />
         <input style="margin-bottom: 20px;" type="password" placeholder="Confirmation Password" name="password_confirmation" class="form-control input-lg" />
-        <input style="margin-bottom: 20px;" type="text" placeholder="Your Name" name="name" class="form-control input-lg" />
+        <input style="margin-bottom: 20px;" type="text" placeholder="Your Name" name="firstname" class="form-control input-lg" />
         <input style="margin-bottom: 20px;" type="email" placeholder="Your Email" name="email" class="form-control input-lg" />
         <button type="submit" class="btn btn-info btn-wide">Sign Up</button>
 

@@ -9,6 +9,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/main.css">
 	<script src="{{ url() }}/js/jquery.js"></script>
 	<script src="{{ url() }}/js/jquery.jscroll.js"></script>
+	<script src="{{ url() }}/js/jquery.lazyloadxt.js"></script>
+
 	@yield('head')
 	<title>@yield('title')</title>
 
@@ -27,7 +29,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
-				<li><a href="#">{{Auth::User()->username}}</a> </li>
+				<li><a href="http://localhost:8000/info">{{Auth::User()->username}}</a> </li>
 				<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
 			@else
 				<li><a href="http://localhost:8000/auth/login">Sign in</a></li>

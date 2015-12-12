@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -25,9 +26,19 @@ class ImageController extends Controller
         return view('test2');
     }
     public function feed(){
-        return view('feed');
+        $images= Image::orderBy('created_at','desc')->get();
+        return view('feed')->with(['images'=>$images]);
     }
     public  function image(){
-        return view('test');
+        $images= Image::orderBy('created_at','desc')->get();
+        return view('test')->with(['images'=>$images]);    }
+
+    public function getP()
+    {
+        return view('info');
+    }
+    public function editP()
+    {
+        return view('edit');
     }
 }
