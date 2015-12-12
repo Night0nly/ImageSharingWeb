@@ -10,6 +10,7 @@
 	<script src="{{ url() }}/js/jquery.js"></script>
 	<script src="{{ url() }}/js/jquery.jscroll.js"></script>
 	<script src="{{ url() }}/js/jquery.lazyloadxt.js"></script>
+	<script src="{{ url() }}/js/flat-ui.js"></script>
 
 	@yield('head')
 	<title>@yield('title')</title>
@@ -29,8 +30,17 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
-				<li><a href="http://localhost:8000/auth/profile">{{Auth::User()->username}}</a> </li>
-				<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
+			<div class="btn-group" style="margin-top: 8px; margin-right: 10px">
+				<button class="btn btn-inverse dropdown-toggle" type="button" data-toggle="dropdown">
+					{{Auth::User()->username}}
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+						<li><a href="http://localhost:8000/auth/profile">Profile</a> </li>
+						<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
+
+				</ul>
+			</div>
 			@else
 				<li><a href="http://localhost:8000/auth/login">Sign in</a></li>
 				<li><a href="http://localhost:8000/auth/register">Register</a></li>
