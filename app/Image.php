@@ -17,6 +17,7 @@ class Image extends Eloquent{
 	public function comments(){
 		return $this->hasMany('App\Comment');
 	}
+    protected $fillable = ['title','caption','vote_count','url_path'];
 
 }
 
