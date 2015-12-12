@@ -1,15 +1,20 @@
-<?php
+<?php 
+class User extends Eloquent{
+	public $table = "users";
 
-namespace App;
+	public function comments(){
+		return this->hasMany('App\Comment');
+	}
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+	public function images(){
+		return this->hasMany('App\Image');
+	}
 
+<<<<<<< HEAD
+	public function albums(){
+		return this->hasMany('App\Album');
+	}
+=======
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
@@ -36,4 +41,6 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+>>>>>>> 94c28365c640561dda40064fbab2fc4cd18a99ab
 }
+?>
