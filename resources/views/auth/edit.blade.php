@@ -11,7 +11,7 @@
             </p>
         </div>
     @endif
-    {!! Form::open(array('action' =>'Auth\AuthController@putUpdate')) !!}
+    {!! Form::open(array('action' =>'Auth\AuthController@postUpdate')) !!}
     {!! csrf_field() !!}
     <div class="container" style="align-content: center;margin-left: 300px">
 

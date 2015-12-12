@@ -31,7 +31,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['getLogout','getEdit','putUpdate','getProfile']]);
+        $this->middleware('guest', ['except' => ['getLogout','getEdit','postUpdate','getProfile']]);
         $this->middleware('auth', ['only' => ['getEdit','putUpdate','getProfile']]);
 
     }
@@ -48,7 +48,7 @@ class AuthController extends Controller
             'firstname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
-            'username' => 'required|between:5,30|unique:users',
+            'username' => 'required|between:5,30',
             'password_confirmation'=>'Required|min:6|max:30|same:password',
 
         ]);
