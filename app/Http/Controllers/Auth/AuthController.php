@@ -22,7 +22,7 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-    private $redirectTo = '/';
+    protected $redirectTo = '/';
     protected $redirectAfterLogout = '/'    ;
     /**
      * Create a new authentication controller instance.
@@ -31,8 +31,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
-        $this->middleware('auth', ['only' => ['editP','updateP']]);
+        $this->middleware('guest', ['except' => ['getLogout','getEdit','putUpdate','getProfile']]);
+        $this->middleware('auth', ['only' => ['getEdit','putUpdate','getProfile']]);
 
     }
 

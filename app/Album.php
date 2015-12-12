@@ -1,5 +1,9 @@
-<?php 
-class Album extends Eloquent{
+<?php
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Album extends Model{
 	public $table = "albums";
 
 	public function images(){
@@ -7,7 +11,7 @@ class Album extends Eloquent{
 	}
 
 	public function users(){
-		return $this->belongsTo('App\User','album_id')
+		return $this->belongsTo('App\User','album_id');
 	}
 }
 

@@ -29,7 +29,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
-				<li><a href="http://localhost:8000/info">{{Auth::User()->username}}</a> </li>
+				<li><a href="http://localhost:8000/auth/profile">{{Auth::User()->username}}</a> </li>
 				<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
 			@else
 				<li><a href="http://localhost:8000/auth/login">Sign in</a></li>

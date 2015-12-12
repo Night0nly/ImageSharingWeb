@@ -42,7 +42,7 @@
               <div class="form-group">
                   <input class="form-control" type="text" placeholder="{{Auth::user()->introduction}}" disabled />
               </div></p>
-          <form action="" style="margin-left:28%">
+          <form action="http://localhost:8000/auth/edit" style="margin-left:28%">
               <button  class="btn btn-default btn-wide btn-primary">
                   Edit
               </button>

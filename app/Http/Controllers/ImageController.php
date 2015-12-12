@@ -33,12 +33,6 @@ class ImageController extends Controller
         $images= Image::orderBy('created_at','desc')->get();
         return view('test')->with(['images'=>$images]);    }
 
-    public function getP()
-    {
-        return view('info');
-    }
-    public function editP()
-    {
-        return view('edit');
-    }
+
+
 }

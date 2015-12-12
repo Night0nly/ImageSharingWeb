@@ -2,49 +2,71 @@
 @section('title')Edit Profile @stop
 @section('content')
     <script type="text/javascript">document.getElementById('navbar-display').style.display = 'block';</script>
-    {!! Form::open(array('action' =>'Auth\AuthController@updateP')) !!}
+    @if(count($errors)>0)
+        <div class="errMes">
+            <p>{{count($errors)}} Error:
+                @foreach($errors->all() as $error)
+                    {{$error}}.
+                @endforeach
+            </p>
+        </div>
+    @endif
+    {!! Form::open(array('action' =>'Auth\AuthController@putUpdate')) !!}
     {!! csrf_field() !!}
     <div class="container" style="align-content: center;margin-left: 300px">
 
         <div class="editp" style="margin-top: 50px; width: 60%; font-family: 'Open Sans Regular', sans-serif; font-size: 18px; color: #00619a">
             <p>First Name:
             <div class="form-group">
-                <input class="form-control" type="text" placeholder="{{Auth::user()->firstname}}" disabled />
+                <input class="form-control" type="text" name="firstname" value="{{Auth::user()->firstname}}"/>
             </div>
             </p>
-            <h3>Last Name
+            <p>Last Name
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="{{Auth::user()->lastname}}" disabled />
+                    <input class="form-control" type="text"  name="lastname" value="{{Auth::user()->lastname}}" />
                 </div>
-            </h3>
-            <h3>Email
+            </p>
+            <p>Email
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="{{Auth::user()->email}}" disabled />
+                    <input class="form-control" type="text" value="{{Auth::user()->email}}" disabled/>
                 </div>
-            </h3>
-            {{--<h3>Change Password--}}
-            {{----}}
-            {{--</h3>--}}
-            <h3>Dislay Name
+            </p>
+
+            <p>Dislay Name
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="{{Auth::user()->username}}" disabled />
+                    <input class="form-control" type="text" name="username" value="{{Auth::user()->username}}" />
                 </div>
-            </h3>
-            <h3>Phone
+            </p>
+            <p>Phone
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="{{Auth::user()->phone}}" disabled />
+                    <input class="form-control" type="text" name="phone" value="{{Auth::user()->phone}}"  />
                 </div>
-            </h3>
-            <h3>Birthday
+            </p>
+            <p>Birthday
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="{{Auth::user()->birthday}}" disabled />
+                    <input class="form-control" type="text" name="birthday" value="{{Auth::user()->birthday}}"  />
                 </div>
-            </h3>
-            <h3>Introduction
+            </p>
+            <p>Introduction
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="{{Auth::user()->introduction}}" disabled />
-                </div></h3>
+                    <input class="form-control" type="text" name="introduction" value="{{Auth::user()->introduction}}"  />
+                </div></p>
+            <p>Change Password
+            <div class="form-group">
+                <input class="form-control" type="password" name="current_password"  placeholder="Current Password"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="New Password"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password"/>
+            </div>
+            </p>
+            <button type="submit"  class="btn btn-default btn-wide btn-primary">
+                Update
+            </button>
         </div>
+
     </div>
     {!! Form::close() !!}
 
