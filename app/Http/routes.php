@@ -18,9 +18,9 @@
 //Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
 
 Route::get('/','ImageController@index');
-Route::get('/feed','ImageController@feed');
+Route::get('/feed/{i}','ImageController@feed');
 Route::get('/test2','ImageController@test2');
-Route::get('/image','ImageController@image');
+//Route::get('/image','ImageController@image');
 Route::controllers([
     'auth'=>'Auth\AuthController',
     'password'=>'Auth\PasswordController',

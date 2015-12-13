@@ -8,8 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/main.css">
 	<script src="{{ url() }}/js/jquery.js"></script>
-	<script src="{{ url() }}/js/jquery.jscroll.js"></script>
-	<script src="{{ url() }}/js/jquery.lazyloadxt.js"></script>
 	<script src="{{ url() }}/js/flat-ui.js"></script>
 
 	@yield('head')

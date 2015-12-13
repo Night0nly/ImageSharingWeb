@@ -25,14 +25,14 @@ class ImageController extends Controller
     {
         return view('test2');
     }
-    public function feed(){
-        $images= Image::orderBy('created_at','desc')->get();
-        return view('feed')->with(['images'=>$images]);
-    }
-    public  function image(){
-        $images= Image::orderBy('created_at','desc')->get();
-        return view('test')->with(['images'=>$images]);    }
+    public function feed($i){
 
+        $photos= Image::orderBy('created_at','desc')->skip($i*10)->take(50)->get();
+        $images = $photos->take(10);
+        return view('feed')->with(['images'=>$images,
+                                    'i'=>$i,
+                                    'photos'=>$photos]);
+    }
 
 
 }
