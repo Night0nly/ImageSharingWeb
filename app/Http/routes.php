@@ -25,3 +25,10 @@ Route::controllers([
     'auth'=>'Auth\AuthController',
     'password'=>'Auth\PasswordController',
 ]);
+Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
+{
+    Route::get('/userinfo/{i}','AdminController@userInfo');
+    Route::post('/deleteuser','AdminController@deleteUser');
+    Route::post('/uprank', 'AdminController@upRank');
+    Route::post('/downrank','AdminController@downRank');
+});

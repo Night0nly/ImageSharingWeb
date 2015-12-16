@@ -1,5 +1,5 @@
 @extends('layouts.menu')
-@section('title')Edit Profile @stop
+@section('title')Profile @stop
 @section('content')
     <script type="text/javascript">document.getElementById('navbar-display').style.display = 'block';</script>
   <div class="container" style="align-content: center;margin-left: 300px">

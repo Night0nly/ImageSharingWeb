@@ -13,6 +13,7 @@
 	@yield('head')
 	<title>@yield('title')</title>
 
+
 </head>
 <body>
 
@@ -24,19 +25,25 @@
 		<ul class="nav navbar-nav">
 			<li><a href="">Gallery</a></li>
 			<li><a href="">Favorite</a></li>
-			<li><a href="http://localhost:8000/feed">Feed</a></li>
+			<li><a href="http://localhost:8000/feed/0">Feed</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
 			<div class="btn-group" style="margin-top: 8px; margin-right: 10px">
-				<button class="btn btn-inverse dropdown-toggle" type="button" data-toggle="dropdown">
-					{{Auth::User()->username}}
+				@if(Auth::User()->rank == 1)
+					<button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">
+				@else
+					<button class="btn btn-inverse dropdown-toggle" type="button" data-toggle="dropdown">
+				@endif
+						{{Auth::User()->username}}
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu dropdown-menu-inverse" role="menu">
 						<li><a href="http://localhost:8000/auth/profile">Profile</a> </li>
+						@if(Auth::User()->rank== 1)
+							<li><a href="http://localhost:8000/userinfo/0">User Infomation</a> </li>
+						@endif
 						<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
-
 				</ul>
 			</div>
 			@else
