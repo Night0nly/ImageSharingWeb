@@ -8,7 +8,7 @@
                 	<ul>
                     	<li><a href=""><p>Gallery</p><p>the beautiful world</p></a></li>
                         <li><a href=""><p>Favorite</p><p>the best moment of</p></a></li>
-                        <li><a href="http://localhost:8000/feed/0"><p>Feed</p><p>your life .</p></a></li>
+                        <li><a href="http://localhost:8000/feed"><p>Feed</p><p>your life .</p></a></li>
                     </ul>
                 </nav>
                 <h1>Sharing photos and life style.</h1>

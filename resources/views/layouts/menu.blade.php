@@ -25,7 +25,8 @@
 		<ul class="nav navbar-nav">
 			<li><a href="">Gallery</a></li>
 			<li><a href="">Favorite</a></li>
-			<li><a href="http://localhost:8000/feed/0">Feed</a></li>
+			<li><a href="http://localhost:8000/feed
+			">Feed</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())

@@ -133,7 +133,7 @@ nav a:hover p {
 	font-family: 'Open Sans Regular', sans-serif;
 	color: #fafaff;
 	position: fixed;
-	top: 0;
+	top: 52px;
 	width: 100%;
 	padding-bottom: 0px;
 }

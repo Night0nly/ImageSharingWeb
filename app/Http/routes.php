@@ -18,7 +18,7 @@
 //Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
 
 Route::get('/','ImageController@index');
-Route::get('/feed/{i}','ImageController@feed');
+Route::get('/feed','ImageController@feed');
 Route::get('/test2','ImageController@test2');
 //Route::get('/image','ImageController@image');
 Route::controllers([
@@ -34,3 +34,4 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     Route::post('/searchuser','AdminController@searchUser');
 
 });
+Route::post('/images/upload', 'ImageController@multipleUpload');

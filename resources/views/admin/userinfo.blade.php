@@ -13,14 +13,14 @@
             text-align: center;
         }
         a {
-            color: #1ABC9C;
+            color: #13A41F;
             text-decoration: none;
             -webkit-transition: .25s;
             transition: .25s;
         }
         a:hover,
         a:focus {
-            color: #fffa39;
+            color: #CC1915;
             text-decoration: none;
         }
         a:focus {
