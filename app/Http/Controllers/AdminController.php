@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -16,13 +17,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userInfo($i)
+    public function userInfo()
     {
-        $users = User::orderBy('created_at','desc')->skip($i*10)->take(50)->get();
-        $j = $users->take(10);
-        return view('admin.userinfo')->with(['all'=>$users,
-                                            'i'=>$i,
-                                            'users'=>$j]);;
+        $users = User::orderBy('created_at','desc')->paginate(10);
+//        $j = $users->take(10);
+        return view('admin.userinfo')->with(['users'=>$users]);;
     }
 
     /**
@@ -53,15 +52,25 @@ class AdminController extends Controller
         $user->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function searchUser(Request $request)
     {
-        //
+        Session::forget('message');
+        $search = $request->input('searchUser');
+        $n = User::whereNotIN('id',[Auth::user()->id])
+            ->where('username', 'like', "%".$search."%")
+            ->count();
+        if($n < 1)
+        {
+            Session::flash('message', 'Not Found');
+            return view('admin.userinfo');
+        }
+        else
+        {
+            $users = User::where('username', 'like', "%".$search."%")
+                ->whereNotIN('id',[Auth::user()->id])
+                ->paginate(10);
+            return view('admin.userinfo')->with(['users'=>$users]);
+        }
     }
 
     /**

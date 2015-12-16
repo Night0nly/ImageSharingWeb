@@ -27,8 +27,10 @@ Route::controllers([
 ]);
 Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 {
-    Route::get('/userinfo/{i}','AdminController@userInfo');
+    Route::get('/userinfo','AdminController@userInfo');
     Route::post('/deleteuser','AdminController@deleteUser');
     Route::post('/uprank', 'AdminController@upRank');
     Route::post('/downrank','AdminController@downRank');
+    Route::post('/searchuser','AdminController@searchUser');
+
 });

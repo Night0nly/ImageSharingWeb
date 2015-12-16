@@ -41,7 +41,7 @@
 				<ul class="dropdown-menu dropdown-menu-inverse" role="menu">
 						<li><a href="http://localhost:8000/auth/profile">Profile</a> </li>
 						@if(Auth::User()->rank== 1)
-							<li><a href="http://localhost:8000/userinfo/0">User Infomation</a> </li>
+							<li><a href="http://localhost:8000/userinfo">User Infomation</a> </li>
 						@endif
 						<li><a href="{{url('/auth/logout')}}">Log Out</a> </li>
 				</ul>
