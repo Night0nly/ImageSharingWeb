@@ -121,6 +121,16 @@
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
+    <table name="comments" schema="" catalog="images" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="image_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="comment" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="guestName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="imagealbums" schema="" catalog="images" type="TABLE">
       <column name="image_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="album_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -135,6 +145,8 @@
       <column name="url_path" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tag_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="migrations" schema="" catalog="images" type="TABLE">
@@ -142,8 +154,8 @@
       <column name="batch" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
     </table>
     <table name="phototags" schema="" catalog="images" type="TABLE">
-      <column name="photo_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="album_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tag_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
     </table>
@@ -176,6 +188,14 @@
       <column name="rank" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="users_email_unique" unique="true" columns="email"/>
+    </table>
+    <table name="votes" schema="" catalog="images" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="ALL_PLUGINS" schema="" catalog="information_schema" type="SYSTEM VIEW">
       <column name="PLUGIN_NAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
@@ -1014,10 +1034,24 @@
       <column name="max_size" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="curr_size" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
     </table>
+    <table name="column_stats" schema="" catalog="mysql" type="SYSTEM TABLE">
+      <column name="db_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="table_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="column_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="min_value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="max_value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nulls_ratio" sqlType="DECIMAL" precision="12" scale="4" nullable="true" jdbcType="3"/>
+      <column name="avg_length" sqlType="DECIMAL" precision="12" scale="4" nullable="true" jdbcType="3"/>
+      <column name="avg_frequency" sqlType="DECIMAL" precision="12" scale="4" nullable="true" jdbcType="3"/>
+      <column name="hist_size" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="hist_type" sqlType="ENUM" precision="15" scale="0" nullable="true" jdbcType="1"/>
+      <column name="histogram" sqlType="VARBINARY" precision="255" scale="0" nullable="true" jdbcType="-3"/>
+      <primary-key name="PRIMARY" columns="db_name,table_name,column_name"/>
+    </table>
     <table name="columns_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="User" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Table_name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Column_name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
@@ -1027,7 +1061,7 @@
     <table name="db" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="User" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Select_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
       <column name="Insert_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
       <column name="Update_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
@@ -1054,7 +1088,7 @@
       <column name="db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="body" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="false" jdbcType="-4"/>
-      <column name="definer" sqlType="CHAR" precision="77" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="definer" sqlType="CHAR" precision="141" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="execute_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="interval_value" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="interval_field" sqlType="ENUM" precision="18" scale="0" nullable="true" jdbcType="1"/>
@@ -1065,7 +1099,7 @@
       <column name="ends" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="status" sqlType="ENUM" precision="18" scale="0" nullable="false" jdbcType="1" def="J0VOQUJMRUQn"/>
       <column name="on_completion" sqlType="ENUM" precision="8" scale="0" nullable="false" jdbcType="1" def="J0RST1An"/>
-      <column name="sql_mode" sqlType="SET" precision="478" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="sql_mode" sqlType="SET" precision="494" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="comment" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="originator" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="time_zone" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="J1NZU1RFTSc="/>
@@ -1090,11 +1124,18 @@
       <column name="command_type" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
       <column name="argument" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
     </table>
+    <table name="gtid_slave_pos" schema="" catalog="mysql" type="SYSTEM TABLE">
+      <column name="domain_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sub_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="server_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="seq_no" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="domain_id,sub_id"/>
+    </table>
     <table name="help_category" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="help_category_id" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
       <column name="name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1"/>
       <column name="parent_category_id" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="true" jdbcType="5"/>
-      <column name="url" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="help_category_id"/>
       <index name="name" unique="true" columns="name"/>
     </table>
@@ -1115,9 +1156,40 @@
       <column name="help_category_id" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
       <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="example" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="url" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="help_topic_id"/>
       <index name="name" unique="true" columns="name"/>
+    </table>
+    <table name="host" schema="" catalog="mysql" type="SYSTEM TABLE">
+      <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Select_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Insert_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Update_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Delete_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Create_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Drop_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Grant_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="References_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Index_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Alter_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Create_tmp_table_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Lock_tables_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Create_view_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Show_view_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Create_routine_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Alter_routine_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Execute_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="Trigger_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <primary-key name="PRIMARY" columns="Host,Db"/>
+    </table>
+    <table name="index_stats" schema="" catalog="mysql" type="SYSTEM TABLE">
+      <column name="db_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="table_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="index_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="prefix_arity" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="avg_frequency" sqlType="DECIMAL" precision="12" scale="4" nullable="true" jdbcType="3"/>
+      <primary-key name="PRIMARY" columns="db_name,table_name,index_name,prefix_arity"/>
     </table>
     <table name="innodb_index_stats" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="database_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
@@ -1169,10 +1241,10 @@
       <column name="param_list" sqlType="BLOB" precision="65535" scale="0" nullable="false" jdbcType="-4"/>
       <column name="returns" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="false" jdbcType="-4"/>
       <column name="body" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="false" jdbcType="-4"/>
-      <column name="definer" sqlType="CHAR" precision="77" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="definer" sqlType="CHAR" precision="141" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="created" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <column name="modified" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
-      <column name="sql_mode" sqlType="SET" precision="478" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="sql_mode" sqlType="SET" precision="494" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="comment" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="character_set_client" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
       <column name="collation_connection" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
@@ -1183,10 +1255,10 @@
     <table name="procs_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="User" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Routine_name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Routine_type" sqlType="ENUM" precision="9" scale="0" nullable="false" jdbcType="1"/>
-      <column name="Grantor" sqlType="CHAR" precision="77" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Grantor" sqlType="CHAR" precision="141" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Proc_priv" sqlType="SET" precision="27" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="Host,Db,User,Routine_name,Routine_type"/>
@@ -1194,20 +1266,27 @@
     </table>
     <table name="proxies_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="User" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Proxied_host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="Proxied_user" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Proxied_user" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="With_grant" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
-      <column name="Grantor" sqlType="CHAR" precision="77" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Grantor" sqlType="CHAR" precision="141" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="Host,User,Proxied_host,Proxied_user"/>
       <index name="Grantor" unique="false" columns="Grantor"/>
+    </table>
+    <table name="roles_mapping" schema="" catalog="mysql" type="SYSTEM TABLE">
+      <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Role" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Admin_option" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <index name="Host" unique="true" columns="Host,User,Role"/>
     </table>
     <table name="servers" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Server_name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Host" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="Username" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Username" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Password" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Port" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="Socket" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
@@ -1268,7 +1347,7 @@
       <primary-key name="PRIMARY" columns="Id"/>
     </table>
     <table name="slow_log" schema="" catalog="mysql" type="SYSTEM TABLE">
-      <column name="start_time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="start_time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVAoNik=" version="true"/>
       <column name="user_host" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
       <column name="query_time" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
       <column name="lock_time" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
@@ -1281,12 +1360,18 @@
       <column name="sql_text" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
       <column name="thread_id" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
     </table>
+    <table name="table_stats" schema="" catalog="mysql" type="SYSTEM TABLE">
+      <column name="db_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="table_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cardinality" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="db_name,table_name"/>
+    </table>
     <table name="tables_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Db" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="User" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Table_name" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="Grantor" sqlType="CHAR" precision="77" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="Grantor" sqlType="CHAR" precision="141" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <column name="Table_priv" sqlType="SET" precision="98" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Column_priv" sqlType="SET" precision="31" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
@@ -1324,7 +1409,7 @@
     </table>
     <table name="user" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
-      <column name="User" sqlType="CHAR" precision="16" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="User" sqlType="CHAR" precision="80" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Password" sqlType="CHAR" precision="41" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
       <column name="Select_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
       <column name="Insert_priv" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
@@ -1362,10 +1447,11 @@
       <column name="max_questions" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="max_updates" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="max_connections" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="max_user_connections" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="plugin" sqlType="CHAR" precision="64" scale="0" nullable="true" jdbcType="1" def="Jyc="/>
-      <column name="authentication_string" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="max_user_connections" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="plugin" sqlType="CHAR" precision="64" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="authentication_string" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="password_expired" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
+      <column name="is_role" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J04n"/>
       <primary-key name="PRIMARY" columns="Host,User"/>
     </table>
     <table name="accounts" schema="" catalog="performance_schema" type="SYSTEM TABLE">

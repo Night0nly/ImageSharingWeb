@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUseralbumsTable extends Migration
+class UpdateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,15 @@ class CreateUseralbumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('useralbums',function(Blueprint $table){
+        Schema::create('comments', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('user_id');
-            $table->string('album_id');
+            $table->string('image_id');
+            $table->text('comment');
             $table->timestamps();
+
         });
     }
-
     /**
      * Reverse the migrations.
      *

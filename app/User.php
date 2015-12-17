@@ -21,6 +21,10 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Comment');
 	}
+    public function votes()
+    {
+        return $this->hasMany('App\Vote');
+    }
 
     public function images()
     {

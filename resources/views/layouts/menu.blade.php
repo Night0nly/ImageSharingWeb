@@ -24,7 +24,9 @@
 	<div class="navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="">Gallery</a></li>
-			<li><a href="">Favorite</a></li>
+			@if(Auth::check())
+			<li><a href="http://localhost:8000/myphotos">My Photos</a></li>
+			@endif
 			<li><a href="http://localhost:8000/feed
 			">Feed</a></li>
 		</ul>

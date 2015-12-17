@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use App\Tag;
+use App\Vote;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -20,26 +23,20 @@ class ImageController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *
      */
-    public function index()
+    public function __construct()
     {
-        return view('main');
+        $this->middleware('auth');
     }
-    public function test2()
-    {
-        return view('test2');
-    }
-    public function feed(){
 
-        $images= Image::orderBy('created_at','desc')->paginate(10);
-        return view('feed')->with(['images'=>$images]);
-    }
 
     public function multipleUpload(Request $request) {
         // getting all of the post data
         $files = $request->file('images');
         $title = $request->input('title');
         $caption = $request->input('caption');
+        $type = $request->input('type');
         // Making counting of uploaded images
         $file_count = count($files);
         // start count how many uploaded
@@ -47,11 +44,13 @@ class ImageController extends Controller
         foreach($files as $file) {
             $rules = array('file' => 'required|mimes:png,gif,jpeg,jpg',
                             'title' => 'required|max:255',
-                            'caption' => 'max:1000'
+                            'caption' => 'max:1000',
+                            'type' => 'required'
             );
             $validator = Validator::make(array('file'=> $file,
                                                 'title' => $title,
-                                                'caption' => $caption
+                                                'caption' => $caption,
+                                                'type' => $type
             ), $rules);
             if($validator->passes()){
                 $destinationPath = './images/Amazing Lock Screen/'; //upload path
@@ -60,23 +59,57 @@ class ImageController extends Controller
                 $file->move($destinationPath, $filename); // move
                 $uploadcount ++;
                 $image = new Image();
-                $image->title= $request->input('title');
-                $image->caption= $request->input('caption');
+                $image->title= $title;
+                $image->caption= $caption;
                 $image->url_path = $filename;
                 $image->vote_count = 0;
+                $image->user_id = Auth::user()->id;
+                $image->tag_id = $type;
                 $image->save();
+
             }
         }
         if($uploadcount == $file_count){
             Session::flash('success', 'Upload successfully');
-            return Redirect::to('feed');
+            return Redirect::to('myphotos');
         }
         else {
-            Session::flash('error', 'Upload file is not valid please make sure you upload .png,gif,jpeg,jpg file');
-
-            return Redirect::to('feed')->withInput()->withErrors($validator);
+            return Redirect::to('myphotos')->withInput()->withErrors($validator);
         }
     }
+    public function userPhotos()
+    {
+        $tags = Tag::where('id','>',0)->get();
+        $images= Image::where('user_id','=',Auth::user()->id)->orderBy('created_at','desc')->paginate(10);
+        return view('user.photos')->with(['images'=>$images,'tags'=>$tags]);
+    }
 
+    public function vote(Request $request){
+
+        $imageId= $request->input('voteImageId');
+        $image = Image::where('id','=',$imageId)->first();
+        $votes = Auth::user()->votes()->get();
+        $voted = 0;
+        foreach($votes as $vote){
+            if($vote->image_id==$imageId){
+                $image->vote_count = $image->vote_count - 1;
+                $image->save();
+                $vote->delete();
+                $voted=1;
+            }
+        }
+        if($voted == 1){
+            return Redirect::to('feed');
+        }else{
+            $newVote = new Vote();
+            $newVote->user_id = Auth::user()->id;
+            $newVote->image_id=$imageId;
+            $newVote->save();
+            $image->vote_count = $image->vote_count + 1;
+            $image->save();
+            return Redirect::to('feed');
+
+        }
+    }
 
 }

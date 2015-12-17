@@ -17,9 +17,13 @@
     a:focus {
         outline: none;
     }
+    .voteButton{
+        background-color: #d0d2b5;
+    }
 </style>
-h1>Create Post</h1>
+<script type="text/javascript">
 
+</script>
 @if(count($errors)>0)
     <div class="errMes">
         <p>{{count($errors)}} Error:
@@ -29,6 +33,7 @@ h1>Create Post</h1>
         </p>
     </div>
 @endif
+@if(Auth::check())
 <div class="text-content" style="margin-top: 50px;margin-left: 20%">
     <div class="span7 offset1">
 
@@ -44,14 +49,10 @@ h1>Create Post</h1>
             <div class="control-group">
             <div class="controls">
                 {!! Form::file('images[]', array('multiple'=>true,'class'=>'btn btn-default')) !!}
-                {{--@if(Session::has('error'))--}}
-                    {{--<p class="errors">{!! Session::get('error') !!}</p>--}}
-                {{--@endif--}}
-
             </div>
                 <p>Title:
                 <div class="form-group">
-                    <input class="form-control" type="text" name="title" value=""/>
+                    <input class="form-control"  type="text" name="title" value=""/>
                 </div>
                 </p>
                 <p>Caption:
@@ -59,44 +60,28 @@ h1>Create Post</h1>
                     <input class="form-control" type="text" name="caption" value=""/>
                 </div>
                 </p>
+                <p>Type:
+                    <select class="form-control select select-primary select-block mbl" name="type">
+                            <option value="0">Nature</option>
+                            <option value="1">Wild</option>
+                            <option value="2">Street</option>
+                            <option value="3">Men</option>
+                            <option value="4">Woman</option>
+                            <option value="4">Animal</option>
+                    </select>
+                    <script type="text/javascript">
+                        $("select").select2({dropdownCssClass: 'dropdown-inverse'});
+                    </script>
+                </p>
         </div>
         {!! Form::submit('Submit', array('class'=>'btn btn-default')) !!}
         {!! Form::close() !!}
     </div>
 </div>
+@endif
 
 <div style="margin: 70px 0px 0px 20%;color: #a21605">
-            {{--<ul style="margin: 75px auto 75px 20%" class="pagination-plain">--}}
-                {{--<li class="previous">--}}
-                    {{--<a style="color:#13A41F;" href="@if($i>0)http://localhost:8000/feed/{{$i-1}}@endif">Previous</a>--}}
-                {{--</li>--}}
-                {{--@for($l=4;$l>0;$l--)--}}
-                    {{--@if(($i-$l)>=0)--}}
-                        {{--<li>--}}
-                            {{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i-$l}}">{{$i+1-$l}}</a>--}}
-                        {{--</li>--}}
-                    {{--@endif--}}
-                {{--@endfor--}}
-                {{--<li>--}}
-                    {{--<a style="color:#cc1915;" href="http://localhost:8000/feed/{{$i}}">{{$i+1}}</a>--}}
-                {{--</li>--}}
-                {{--@for($k=1;$k<5;$k++)--}}
-                    {{--@if((sizeof($photos)/10-$k)>0)--}}
-                        {{--<li>--}}
-                            {{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i+$k}}">{{$i+1+$k}}</a>--}}
-                        {{--</li>--}}
-                    {{--@endif--}}
-                {{--@endfor--}}
-                {{--@for($j=1;$j<(5-$i);$j++)--}}
-                    {{--<li>--}}
-                        {{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i+4+$j}}">{{$i+5+$j}}</a>--}}
-                    {{--</li>--}}
-                {{--@endfor--}}
-                {{--<li class="next">--}}
-                    {{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i+1}}">Newer</a>--}}
-                {{--</li>--}}
-            {{--</ul>--}}
-            {{--***************************************************************--}}
+
             <div style="margin: 50px auto 50px 25%;">
                 {!! $images->render() !!}
             </div>
@@ -107,8 +92,36 @@ h1>Create Post</h1>
                     </div>
                     <div class="col-sm-3">
                         <h3>Title: {{$image->title}}</h3>
-                        <h5>Vote: {{$image->vote_count}}</h5>
+                        @if(Auth::check())
+                        <form action="{{url('/vote')}}" method="POST">
+                            {!! csrf_field() !!}
+                        <button class="btn btn-default voteButton" type="submit"
+                                @foreach($votes as $vote)
+                                    @if($vote->image_id==$image->id)
+                                        style="background-color: #ff0b0b"
+                                    @endif
+                                @endforeach
+                                >Vote: {{$image->vote_count}}</button>
+                            <input type="hidden" name="voteImageId" value="{{$image->id}}">
+                        </form>
+                        @else
+                                <h5>Vote: {{$image->vote_count}}</h5>
+                        @endif
+                        {{--////////////////////////////////////////////////////////////////////--}}
+                        @foreach($tags as $tag)
+                            @if($image->tag_id == $tag->id)
+                                <h5>Type: {{$tag->tag_name}}</h5>
+                            @endif
+                        @endforeach
                         <h5>{{$image->caption}}</h5>
+                        <h5>Comment:</h5>
+                        <form action="{{url('/comment')}}" method="POST">
+                        {!! csrf_field() !!}
+                        <input type="hidden" name="imageId" value="{{$image->id}}" class="form-control" />
+                        <input type="text" placeholder="Name" name="guestName" class="form-control" />
+                        <input type="text" placeholder="Comment" name="comment" class="form-control" />
+                        <input type="submit" hidden />
+                        </form>
                     </div>
                 </div>
             @endforeach
@@ -118,3 +131,34 @@ h1>Create Post</h1>
 
     </div>
 @stop
+{{--<ul style="margin: 75px auto 75px 20%" class="pagination-plain">--}}
+{{--<li class="previous">--}}
+{{--<a style="color:#13A41F;" href="@if($i>0)http://localhost:8000/feed/{{$i-1}}@endif">Previous</a>--}}
+{{--</li>--}}
+{{--@for($l=4;$l>0;$l--)--}}
+{{--@if(($i-$l)>=0)--}}
+{{--<li>--}}
+{{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i-$l}}">{{$i+1-$l}}</a>--}}
+{{--</li>--}}
+{{--@endif--}}
+{{--@endfor--}}
+{{--<li>--}}
+{{--<a style="color:#cc1915;" href="http://localhost:8000/feed/{{$i}}">{{$i+1}}</a>--}}
+{{--</li>--}}
+{{--@for($k=1;$k<5;$k++)--}}
+{{--@if((sizeof($photos)/10-$k)>0)--}}
+{{--<li>--}}
+{{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i+$k}}">{{$i+1+$k}}</a>--}}
+{{--</li>--}}
+{{--@endif--}}
+{{--@endfor--}}
+{{--@for($j=1;$j<(5-$i);$j++)--}}
+{{--<li>--}}
+{{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i+4+$j}}">{{$i+5+$j}}</a>--}}
+{{--</li>--}}
+{{--@endfor--}}
+{{--<li class="next">--}}
+{{--<a style="color:#13A41F;" href="http://localhost:8000/feed/{{$i+1}}">Newer</a>--}}
+{{--</li>--}}
+{{--</ul>--}}
+{{--***************************************************************--}}

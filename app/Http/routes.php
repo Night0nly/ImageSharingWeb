@@ -17,10 +17,9 @@
 //This is for the post event of the index.page
 //Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
 
-Route::get('/','ImageController@index');
-Route::get('/feed','ImageController@feed');
-Route::get('/test2','ImageController@test2');
-//Route::get('/image','ImageController@image');
+Route::get('/','MainController@index');
+Route::get('/feed','MainController@feed');
+Route::get('/image/{i}','MainController@showImage');
 Route::controllers([
     'auth'=>'Auth\AuthController',
     'password'=>'Auth\PasswordController',
@@ -35,3 +34,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 
 });
 Route::post('/images/upload', 'ImageController@multipleUpload');
+Route::get('/myphotos','ImageController@userPhotos');
+Route::post('/comment','MainController@commentImage');
+Route::post('/vote','ImageController@vote');
+
+
+

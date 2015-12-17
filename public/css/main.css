@@ -136,4 +136,5 @@ nav a:hover p {
 	top: 52px;
 	width: 100%;
 	padding-bottom: 0px;
+	z-index: 999;
 }
