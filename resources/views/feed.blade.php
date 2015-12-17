@@ -21,9 +21,7 @@
         background-color: #d0d2b5;
     }
 </style>
-<script type="text/javascript">
 
-</script>
 @if(count($errors)>0)
     <div class="errMes">
         <p>{{count($errors)}} Error:
@@ -88,7 +86,7 @@
             @foreach($images as $image)
                 <div class="row">
                     <div class="col-sm-9">
-                        <a href="#"><img width="100%" src="{{url()}}/images/Amazing Lock Screen/{{$image->url_path}}"></a>
+                        <a href="http://localhost:8000/image/{{$image->id}}"><img width="100%" src="{{url()}}/images/Amazing Lock Screen/{{$image->url_path}}"></a>
                     </div>
                     <div class="col-sm-3">
                         <h3>Title: {{$image->title}}</h3>
@@ -101,7 +99,7 @@
                                         style="background-color: #ff0b0b"
                                     @endif
                                 @endforeach
-                                >Vote: {{$image->vote_count}}</button>
+                                ><span class="voteClass">Vote: </span>{{$image->vote_count}}</button>
                             <input type="hidden" name="voteImageId" value="{{$image->id}}">
                         </form>
                         @else
@@ -118,8 +116,12 @@
                         <form action="{{url('/comment')}}" method="POST">
                         {!! csrf_field() !!}
                         <input type="hidden" name="imageId" value="{{$image->id}}" class="form-control" />
+                            @if(Auth::check())
+                                <input type="hidden" placeholder="Name" name="guestName" value="{{Auth::user()->username}}" class="form-control" />
+                            @else
                         <input type="text" placeholder="Name" name="guestName" class="form-control" />
-                        <input type="text" placeholder="Comment" name="comment" class="form-control" />
+                            @endif
+                            <input type="text" placeholder="Comment" name="comment" class="form-control" />
                         <input type="submit" hidden />
                         </form>
                     </div>

@@ -20,6 +20,10 @@
 Route::get('/','MainController@index');
 Route::get('/feed','MainController@feed');
 Route::get('/image/{i}','MainController@showImage');
+Route::get('/search','MainController@search');
+Route::post('/comment','MainController@commentImage');
+Route:post('/searchimage','MainController@searchImage');
+
 Route::controllers([
     'auth'=>'Auth\AuthController',
     'password'=>'Auth\PasswordController',
@@ -35,8 +39,11 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 });
 Route::post('/images/upload', 'ImageController@multipleUpload');
 Route::get('/myphotos','ImageController@userPhotos');
-Route::post('/comment','MainController@commentImage');
+Route::get('/editimage/{i}','ImageController@editImage');
+Route::post('/updateimage/{i}','ImageController@updateImage');
 Route::post('/vote','ImageController@vote');
+Route::post('/deleteimage','ImageController@deleteImage');
+
 
 
 

@@ -33,7 +33,7 @@ class MainController extends Controller
 
     public function feed(){
         $tags = Tag::where('id','>',0)->get();
-        $images= Image::orderBy('created_at','desc')->paginate(10);
+        $images= Image::orderBy('updated_at','desc')->paginate(10);
         if(Auth::check()){
             $votes = Auth::user()->votes()->get();
             return view('feed')->with(['images'=>$images,'tags'=>$tags,'votes'=>$votes]);
@@ -64,6 +64,10 @@ class MainController extends Controller
             return Redirect::to('feed')->withInput()->withErrors($validator);
 
         }
+
+    }
+
+    public function searchImage(Request $request){
 
     }
 

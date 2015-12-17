@@ -111,5 +111,47 @@ class ImageController extends Controller
 
         }
     }
+    public function editImage($i){
+        $image = Image::find($i);
+        return view('user.edit')->with(['image'=>$image]);
+    }
 
+    public function updateImage(Request $request){
+        $i = Image::find($request->input('imageId'));
+        $rules = array(
+            'title' => 'required|max:255',
+            'caption' => 'max:1000',
+            'type' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if(Auth::user()->id == $i->user_id or Auth::user()->rank == 1) {
+            if ($validator->passes()) {
+                $image = [
+                    'id' => $request->input('imageId'),
+                    'title' => $request->input('title'),
+                    'caption' => $request->input('caption'),
+                    'tag_id' => $request->input('type'),
+                ];
+                Image::where('id', '=', $request->input('imageId'))->update($image);
+                return redirect("/image/" . $request->input('imageId'))->withInput();
+            } else {
+                return redirect("/editimage/" . $request->input('imageId'))->withInput()->withErrors($validator);
+
+            }
+        }else{
+            return redirect("/editimage/" . $request->input('imageId'))->withInput();
+
+        }
+    }
+
+    public function deleteImage(Request $request){
+        $image = Image::find((int)$request->input('imageId'));
+        if(Auth::user()->id == $image->user_id or Auth::user()->rank == 1) {
+            $image->delete();
+            Session::flash('success', 'Delete successfully');
+            return redirect('/myphotos');
+        }else{
+            return Redirect::to('main');
+        }
+    }
 }

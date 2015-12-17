@@ -84,7 +84,7 @@
         @foreach($images as $image)
             <div class="row">
                 <div class="col-sm-9">
-                    <a href="#"><img width="100%" src="{{url()}}/images/Amazing Lock Screen/{{$image->url_path}}"></a>
+                    <a href="http://localhost:8000/image/{{$image->id}}"><img width="100%" src="{{url()}}/images/Amazing Lock Screen/{{$image->url_path}}"></a>
                 </div>
                 <div class="col-sm-3">
                     <h3>Title: {{$image->title}}</h3>
