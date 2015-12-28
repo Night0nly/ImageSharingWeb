@@ -138,3 +138,10 @@ nav a:hover p {
 	padding-bottom: 0px;
 	z-index: 900;
 }
+
+.check{
+	display:none;
+}
+.visible{
+	display: block;
+}

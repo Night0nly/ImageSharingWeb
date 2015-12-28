@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-2"><h4>Search Username:</h4></div>
-            <form action="{{ url('/searchuser') }}" method="POST">
+            <form action="{{ url('/searchuser') }}" method="GET">
                 {!! csrf_field() !!}
                 <div class="col-sm-4">
                     <input type="text" class="form-control" name="searchUser" placeholder="Username" />
@@ -117,7 +117,7 @@
             @endforeach
         </table>
         <div style="text-align: center;width: 100%;margin-top: 50px;margin-bottom: 50px">
-            {!! $users->render() !!}
+            {!! $users->appends('searchUser',$requestSave)->render()!!}
         </div>
         @endif
         {{--*******************************************************************************--}}

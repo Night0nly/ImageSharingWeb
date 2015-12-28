@@ -21,7 +21,7 @@ class AdminController extends Controller
     {
         $users = User::orderBy('created_at','desc')->paginate(10);
 //        $j = $users->take(10);
-        return view('admin.userinfo')->with(['users'=>$users]);;
+        return view('admin.userinfo')->with(['users'=>$users,'requestSave'=> null]);;
     }
 
     /**
@@ -69,7 +69,8 @@ class AdminController extends Controller
             $users = User::where('username', 'like', "%".$search."%")
                 ->whereNotIN('id',[Auth::user()->id])
                 ->paginate(10);
-            return view('admin.userinfo')->with(['users'=>$users]);
+            $users->setPath('/searchuser');
+            return view('admin.userinfo')->with(['users'=>$users,'requestSave'=>$search]);
         }
     }
 

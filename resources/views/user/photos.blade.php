@@ -60,13 +60,14 @@
                     </div>
                     </p>
                     <p>Type:
-                        <select class="form-control select select-primary select-block mbl" name="type">
-                            <option value="0">Nature</option>
-                            <option value="1">Wild</option>
-                            <option value="2">Street</option>
-                            <option value="3">Men</option>
-                            <option value="4">Woman</option>
-                            <option value="5">Animal</option>
+
+                        <select multiple="multiple" class="form-control multiselect multiselect-info" name="type[]">
+                            <option value="1">Nature</option>
+                            <option value="2">Wild</option>
+                            <option value="3">Street</option>
+                            <option value="4">Men</option>
+                            <option value="5">Woman</option>
+                            <option value="6">Animal</option>
                         </select>
 
                     </p>
@@ -89,12 +90,20 @@
                 <div class="col-sm-3">
                     <h3>Title: {{$image->title}}</h3>
                     <h5>Created At: {{$image->created_at}}</h5>
-                    <h5>Vote: {{$image->vote_count}}</h5>
-                    @foreach($tags as $tag)
-                        @if($image->tag_id == $tag->id)
-                            <h5>Type: {{$tag->tag_name}}</h5>
-                        @endif
-                    @endforeach
+                    <tr>
+                        <td>Type:</td>
+                        <td>
+                            @foreach($phototags as $phototag)
+                                @if($phototag->image_id == $image->id)
+                                    @foreach($tags as $tag)
+                                        @if($phototag->tag_id == $tag->id)
+                                            <span>{{$tag->tag_name}}</span>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        </td>
+                    </tr>
                     <h5>{{$image->caption}}</h5>
                 </div>
             </div>

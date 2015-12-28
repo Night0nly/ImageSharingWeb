@@ -11,18 +11,11 @@
 |
 */
 
-
-//This is for the get event of the index page
-//Route::get('/',array('as'=>'index_page','uses'=>'ImageController@getIndex'));
-//This is for the post event of the index.page
-//Route::post('/',array('as'=>'index_page_post','before' =>'csrf', 'uses'=>'ImageController@postIndex'));
-
 Route::get('/','MainController@index');
 Route::get('/feed','MainController@feed');
 Route::get('/image/{i}','MainController@showImage');
-Route::get('/search','MainController@search');
 Route::post('/comment','MainController@commentImage');
-Route:post('/searchimage','MainController@searchImage');
+Route::get('/searchimage','MainController@searchImage');
 
 Route::controllers([
     'auth'=>'Auth\AuthController',
@@ -31,10 +24,10 @@ Route::controllers([
 Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 {
     Route::get('/userinfo','AdminController@userInfo');
+    Route::get('/searchuser','AdminController@searchUser');
     Route::post('/deleteuser','AdminController@deleteUser');
     Route::post('/uprank', 'AdminController@upRank');
     Route::post('/downrank','AdminController@downRank');
-    Route::post('/searchuser','AdminController@searchUser');
 
 });
 Route::post('/images/upload', 'ImageController@multipleUpload');

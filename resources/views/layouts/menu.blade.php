@@ -54,10 +54,11 @@
 				<li><a href="http://localhost:8000/auth/register">Register</a></li>
 			@endif
 		</ul>
-		<form role="search" action="{{url('/searchimage')}}" method="POST" class="navbar-form navbar-right">
+		<form role="search" action="{{url('/searchimage')}}" method="GET" class="navbar-form navbar-right">
 			{!! csrf_field() !!}
 			<div class="form-group">
-				<input type="text" placeholder="Search" class="form-control">
+				<input type="text" placeholder="Search" name="title" class="form-control">
+				<input type="hidden" value="0" name="type" class="form-control">
 			</div>
 			<button class="btn btn-default" type="submit">Submit</button>
 		</form>

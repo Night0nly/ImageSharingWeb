@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use App\PhotoTag;
 use App\Tag;
 use App\Vote;
 use Illuminate\Http\Request;
@@ -36,7 +37,9 @@ class ImageController extends Controller
         $files = $request->file('images');
         $title = $request->input('title');
         $caption = $request->input('caption');
-        $type = $request->input('type');
+        if(sizeof($request->input('type'))>0) {
+            $types = $_POST['type'];
+        }
         // Making counting of uploaded images
         $file_count = count($files);
         // start count how many uploaded
@@ -45,14 +48,13 @@ class ImageController extends Controller
             $rules = array('file' => 'required|mimes:png,gif,jpeg,jpg',
                             'title' => 'required|max:255',
                             'caption' => 'max:1000',
-                            'type' => 'required'
             );
             $validator = Validator::make(array('file'=> $file,
                                                 'title' => $title,
                                                 'caption' => $caption,
-                                                'type' => $type
             ), $rules);
             if($validator->passes()){
+                $size = $file->getSize();
                 $destinationPath = './images/Amazing Lock Screen/'; //upload path
                 $extension = $file->getClientOriginalExtension();// get image extension
                 $filename = time().$file->getClientOriginalName().'.'.$extension; //filename
@@ -64,9 +66,15 @@ class ImageController extends Controller
                 $image->url_path = $filename;
                 $image->vote_count = 0;
                 $image->user_id = Auth::user()->id;
-                $image->tag_id = $type;
+                $image->size = $size;
                 $image->save();
-
+                if(sizeof($request->input('type'))>0){
+                foreach($types as $type){
+                $photoTag = new PhotoTag();
+                $photoTag->image_id = $image->id;
+                $photoTag->tag_id= $type;
+                $photoTag->save();
+                }}
             }
         }
         if($uploadcount == $file_count){
@@ -80,8 +88,9 @@ class ImageController extends Controller
     public function userPhotos()
     {
         $tags = Tag::where('id','>',0)->get();
+        $phototags = PhotoTag::where('image_id','>',0)->get();
         $images= Image::where('user_id','=',Auth::user()->id)->orderBy('created_at','desc')->paginate(10);
-        return view('user.photos')->with(['images'=>$images,'tags'=>$tags]);
+        return view('user.photos')->with(['images'=>$images,'tags'=>$tags,'phototags'=>$phototags]);
     }
 
     public function vote(Request $request){
